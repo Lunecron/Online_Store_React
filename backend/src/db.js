@@ -1,9 +1,13 @@
 import {MongoClient} from "mongodb";
+import * as dotenv from "dotenv";
+
+
+dotenv.config();
 let client;
-const dbURI = "mongodb+srv://lunecron:ycOLHkeIaRrjkOCc@cluster0.y9hfdy7.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+const dbURI = process.env.MONGODB_URI || "";
 
 export const initializeDBConnection = async ()=>{
-    
+    if(!dbURI) console.log("Unable to access dbUri...")
     try {
         client = await MongoClient.connect(dbURI, {});
         console.log("CONNECTED TO DATABASE SUCCESSFULLY");
