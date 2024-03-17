@@ -6,8 +6,8 @@ export const Modal = ({title="",children, setVisibility}) =>{
         <div>
             <div 
             style={{backgroundColor: "rgba(0,0,0,0.8)",
-                width: "100vw",
-                height: "100vh",
+                width: "150vw",
+                height: "150vh",
                 zIndex:0,
                 top: "50%",
                 left: "50%",
@@ -27,7 +27,8 @@ export const Modal = ({title="",children, setVisibility}) =>{
                 backgroundColor: "black",
                 border: "2px solid white",
                 borderRadius: "8px",
-                padding: "16px"
+                padding: "16px",
+                overflow: "auto",
                 }}
             >
                 <Row 

@@ -1,9 +1,13 @@
+import { useContext } from "react";
 import { Column } from "./Column";
 import { Image } from "./Image";
 import { Row } from "./Row";
+import { CartContext } from "../context/CartProvider";
+import { updateItemInCart } from "../utils/cartManagement";
 
 export const ProductCard= ({product})=>{
     const {id,title,alt,imageSource,price,availability} = product
+    const [cartItems,setCartItems] = useContext(CartContext);
 
     if (availability) {
         return (
@@ -14,7 +18,7 @@ export const ProductCard= ({product})=>{
                 <h4>${price}</h4>
                 {!availability && <p style={{color: "red" , fontStyle: "italic"}}>Out of Stock</p>}
             </Row>
-            <button disabled= {!availability}>Add to Cart</button>
+            <button onClick={()=>setCartItems( (pre) => updateItemInCart("add", product, pre))} disabled= {!availability}>Add to 🛒</button>
             </Column>
     
         );
@@ -28,7 +32,7 @@ export const ProductCard= ({product})=>{
                 <h4>${price}</h4>
                 {!availability && <p style={{color: "red" , fontStyle: "italic"}}>Out of Stock</p>}
             </Row>
-            <button disabled= {!availability}>Add to Cart</button>
+            <button onClick={()=>setCartItems( (pre) => updateItemInCart("add", product, pre))} disabled= {!availability}>Add to 🛒</button>
             </Column>
     
         );

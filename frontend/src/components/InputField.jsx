@@ -8,6 +8,6 @@ export const InputField = ({label,value,setValue,type="text"}) => {
             </label>
             <input name="input" style={{flex :3}} type={type} value={value} onChange={(e)=> setValue(e.target.value)}/>
         </Row>
-    )
+    );
 
 };

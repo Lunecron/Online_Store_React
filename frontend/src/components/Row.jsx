@@ -12,5 +12,5 @@ export const Row = ({children,style}) => {
         >
             {children}
         </div>
-    )
-}
+    );
+};
