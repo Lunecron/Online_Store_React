@@ -1,23 +1,36 @@
-import { useContext } from "react"
-import { Column } from "./Column"
-import { LogIn } from "./LogIn"
-import { Row } from "./Row"
-import { SignUp } from "./SignUp"
-import { CartContext } from "../context/CartProvider"
-import { ViewCart } from "./ViewCart"
+import { useContext } from "react";
+import { Column } from "./Column";
+import { LogIn } from "./LogIn";
+import { Row } from "./Row";
+import { SignUp } from "./SignUp";
+import { ViewCart } from "./ViewCart";
+import { CurrentUserContext } from "../context/CurrentUserProvider";
+import { useNavigate } from "react-router-dom";
+import { Logo } from "./Logo";
+
 
 export const SiteHeader = () => {
-    const [cartItems]= useContext(CartContext);
-    const numberOfItems = cartItems.length || 0;
+
+    const [currentUser, , setToken] = useContext(CurrentUserContext);
+    const navigate = useNavigate();
 
     return (
         <Column>
         <Row>
-            <h1>Ecommere App</h1>
+            <Logo></Logo>
+            <h1>Ecommerce App</h1>
             <Row>
                 <ViewCart title="Your Items:"></ViewCart>
-                <SignUp title="Sign Up"/>
-                <LogIn title="Log In"/>
+                {currentUser ?
+                    (<>
+                        <button onClick={() => navigate("/orders")}>View Orders</button>
+                        <button onClick={()=> setToken(null)}>Sign Out</button>
+                    </>) 
+                    : (<>
+                        <SignUp title="Sign Up"/>
+                        <LogIn title="Log In"/>
+                    </>)
+                }
             </Row>
         </Row>
         </Column>

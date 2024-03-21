@@ -4,11 +4,10 @@ export const getNumberOfItemsInCart = (cartItems) => cartItems.reduce((acc,item)
 export const getCartTotal = (cartItems) => cartItems.reduce((acc,item) => acc + item.price * item.count, 0);
 
 export const addItemToCart = (product, cartItems) => {
-
-    const isInCart = cartItems.find(i => i.id === product.id);
+    const isInCart = cartItems.find(i => i._id === product._id);
 
     return isInCart ? 
-        cartItems.reduce((acc,item) => item.id === product.id ?
+        cartItems.reduce((acc,item) => item._id === product._id ?
             [...acc, {...item, count: item.count + 1 }] 
             : [...acc,item],
             [])
@@ -17,21 +16,21 @@ export const addItemToCart = (product, cartItems) => {
 };
 
 export const removeItemFromCart = (product, cartItems) => {
-    const isInCart = cartItems.find(i => i.id === product.id);
+    const isInCart = cartItems.find(i => i._id === product._id);
     if (!isInCart) return null;
     const {count} = isInCart;
 
     return count > 1
     ? cartItems.reduce(
         (acc, item) =>
-          item.id === product.id
+          item._id === product._id
             ? [...acc, { ...item, count: item.count - 1 }]
             : [...acc, item],
         [])
     : deleteItemFromCart(product, cartItems);
 }
 
-export const deleteItemFromCart = (product,cartItems) => cartItems.filter(item => item.id !== product.id);
+export const deleteItemFromCart = (product,cartItems) => cartItems.filter(item => item._id !== product._id);
 
 export const updateItemInCart = (operation, product, cartItems) => {
     if (operation === "add") return addItemToCart(product, cartItems);

@@ -7,19 +7,27 @@ import { Row } from "../components/Row";
 import { CartContext } from "../context/CartProvider";
 
 export const CheckOut = () => {
+
     const [isConfirmed,setIsConfirmed] = useState(false);
     const [, setCartItems] = useContext(CartContext);
     const navigate = useNavigate();
     const waitTime = 5 * 1000;
     const [timeRemaining, setTimeRemaining]= useState(waitTime / 1000);
+    let timerId = "";
 
     useEffect(()=>{
         if(isConfirmed){
             setCartItems([]);
-            setTimeout(()=> navigate("/"),waitTime);
+            timerId = setTimeout(()=> navigate("/"),waitTime);
             setInterval(()=> setTimeRemaining((pre) => pre-1), 1000);
         }
+
+        return() => clearTimeout(timerId);
+
     },[isConfirmed]);
+
+
+
     return (
         <Column>
             {isConfirmed ? (

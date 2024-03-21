@@ -7,6 +7,8 @@ import { sampleProductsList } from './assets/productList';
 import { Row } from './components/Row';
 import { Main } from './pages/Main';
 import { CheckOut } from './pages/CheckOut';
+import { ViewOrders } from './pages/ViewOrders';
+import { AddProduct } from './pages/AddProduct';
 
 function App() {
 
@@ -17,6 +19,8 @@ function App() {
         <Routes>
           <Route path= "/" element={<Main/>}/>
           <Route path= "/check-out" element={<CheckOut/>}/>
+          <Route path= "/orders" element={<ViewOrders/>}/>
+          <Route path= "/add-product" element={<AddProduct/>}/>
         </Routes>
       </Column>
     </Router>

@@ -11,6 +11,7 @@ export const signUpRoute = {
 
         const {email,firstName, lastName, location, password} = req.body
         if(!email || !password || !firstName || !lastName || !location) return res.sendStatus(500);
+        const db= getDbConnection(`ecommerce`);
 
         const user = await db.collection("users").findOne({email});
 
@@ -25,18 +26,22 @@ export const signUpRoute = {
         //console.log(`Password: ${password}; Salt: ${salt} ; Hash: ${passwordHash}`)
         //console.log(`Email: ${email}, Password: ${password}`)
 
-        const db= getDbConnection(`ecommerce`)
+        
         const result = await db.collection("users").insertOne({
             email,
-            passwordHash
-        })
+            passwordHash,
+            firstName,
+            lastName,
+            location,
+        });
         
         if(!result) return res.sendStatus(500);
 
         const {insertedId} = result;
 
+
         jwt.sign(
-            {uid: insertedId, email},
+            {uid: insertedId, email , firstName, lastName,location},
             process.env.JWT_SECRET, 
             {expiresIn: "2d"},
             (error, token) => {
